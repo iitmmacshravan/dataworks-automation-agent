@@ -9,13 +9,8 @@ import uvicorn
 app = FastAPI()
 
 # Load AI Proxy Token from environment variable
-AIPROXY_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIyZjIwMDAxNTlAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.RkyKH_Uh6PvjeJRDN7iRJTGTo_-YBe8BwbOk9CS--Os"
-if not AIPROXY_TOKEN:
-    raise ValueError("AIPROXY_TOKEN is not set!")
-
-# OpenAI API Configuration (Using AI Proxy)
-openai.api_key = AIPROXY_TOKEN
-openai.api_base = "https://aiproxy.sanand.workers.dev/openai/v1"
+openai_api_base = os.getenv("OPENAI_API_BASE", "https://aiproxy.sanand.workers.dev/openai/v1")
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 # Define request model
 class TaskRequest(BaseModel):
